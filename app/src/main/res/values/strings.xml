@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ProQ-revised</string>
+    <string name="whoAreYou">Who Are You?</string>
+    <string name="caregiverBtnText">Caregiver</string>
+    <string name="contactPersonBtnText">Contact Person</string>
+    <string name="emailHint">Email: </string>
+    <string name="passwordHint">Password: </string>
+    <string name="loginBtn">Login</string>
 </resources>
