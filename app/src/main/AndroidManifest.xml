@@ -12,7 +12,7 @@
         android:theme="@style/Theme.ProQrevised"
         tools:targetApi="31">
         <activity
-            android:name=".ContactPersonLogin"
+            android:name=".CaregiverLogin"
             android:exported="false" />
         <activity
             android:name=".CaregiverLogin"

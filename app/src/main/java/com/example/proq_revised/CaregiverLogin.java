@@ -11,16 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class CaregiverLogin extends AppCompatActivity {
@@ -31,6 +29,7 @@ public class CaregiverLogin extends AppCompatActivity {
     private boolean userExist = false;
     private CollectionReference caregiverBayshore;
     private CollectionReference caregiverParamed;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +42,22 @@ public class CaregiverLogin extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         caregiverBayshore = db.collection("Bayshore");
         caregiverParamed = db.collection("Paramed");
-
+        mAuth = FirebaseAuth.getInstance();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Get the input text
                 String emailValue = email.getText().toString();
-                String passwordValue = email.getText().toString();
+                String passwordValue = password.getText().toString();
 
-                //pass in email and password to caregiverLogin method
-                caregiverLogin(emailValue, passwordValue);
+                //pass in email and password to caregiverLogin method if user input value for both fields
+                if((!emailValue.isEmpty())&&(!passwordValue.isEmpty())){
+                    caregiverLogin(emailValue, passwordValue);
+                }else{
+                    Toast.makeText(CaregiverLogin.this, "Please enter email and password" +
+                            "", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -62,20 +66,37 @@ public class CaregiverLogin extends AppCompatActivity {
         //Perform query against Bayshore & Paramed collection to search for the inputted email
         Query queryBS = caregiverBayshore.whereEqualTo("email", email);
         Query queryPM = caregiverParamed.whereEqualTo("email", email);
-
+        ArrayList<String> userData = new ArrayList<>();
         //retrieve data from the query performed against Bayshore & Paramed collection
-        getQueryData(queryBS);
+        userData = getQueryData(queryBS);
         //if user doesn't exist in Bayshore, search in Paramed
         if(userExist==false) {
             getQueryData(queryPM);
         }
-        //if can't find user email after checking Bayshore and Paramed collections, display message
-        if (userExist==false){
-            Toast.makeText(this, "User email does not exist. Try again or contact admin", Toast.LENGTH_SHORT).show();
-        }
-        //check if email and password matches
+        if (userExist==true) {
+            //check if email and password matches
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //successful login
+                            if (task.isSuccessful()) {
+                                // Sign in success
+                                Log.d("TAG", "signInWithEmail:success");
+                                //go to next activity if email & password matches
 
-        //go to next activity if email & password matches
+                            }
+                            //unsuccessful login, display message
+                            else {
+                                Log.d("TAG", "onComplete: signing fail");
+                                Toast.makeText(CaregiverLogin.this, "Invalid email and/or password. Try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+        else{
+            Toast.makeText(this, "Invalid email and/or password. Try again", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
