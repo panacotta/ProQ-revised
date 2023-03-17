@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactPersonLogin extends AppCompatActivity {
     private EditText email;
@@ -76,7 +77,7 @@ public class ContactPersonLogin extends AppCompatActivity {
                             //successful login
                             if (task.isSuccessful()) {
                                 // Sign in success
-                                Log.d("TAG", "signInWithEmail:success");
+                                Log.d("TAG", "signInWithEmail:success" );
                                 //go to next activity if email & password matches
                             }
                             //unsuccessful login, display message
@@ -110,11 +111,11 @@ public class ContactPersonLogin extends AppCompatActivity {
                         if (id!=null) {
                             //add values to arrayList
                             String name = document.get("firstName") + " " + document.get("lastName");
-
+                            List<String> clientList = (List<String>) document.get("clientList");
                             userExist = true;
                             user.add(id);
                             user.add(name);
-                            user.add
+                            user.add(clientList.toString());
                             Log.d("TAG", user.toString() + " " + userExist);
                         }
                     }

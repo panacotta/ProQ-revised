@@ -15,7 +15,7 @@
             android:name=".CaregiverLogin"
             android:exported="false" />
         <activity
-            android:name=".CaregiverLogin"
+            android:name=".ContactPersonLogin"
             android:exported="false" />
         <activity
             android:name=".WelcomeActivity"

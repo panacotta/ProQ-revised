@@ -84,7 +84,6 @@ public class CaregiverLogin extends AppCompatActivity {
                                 // Sign in success
                                 Log.d("TAG", "signInWithEmail:success");
                                 //go to next activity if email & password matches
-
                             }
                             //unsuccessful login, display message
                             else {
@@ -124,7 +123,6 @@ public class CaregiverLogin extends AppCompatActivity {
                                 userExist = true;
                                 user.add(id);
                                 user.add(name);
-                                user.add(status);
                                 Log.d("TAG", user.toString()+" "+userExist);
                             }
                         }
