@@ -6,4 +6,6 @@
     <string name="emailHint">Email: </string>
     <string name="passwordHint">Password: </string>
     <string name="loginBtn">Login</string>
+    <string name="searchHint">Search by last name...</string>
+    <string name="logoContentDescription">Pro-Q Logo</string>
 </resources>

@@ -12,6 +12,9 @@
         android:theme="@style/Theme.ProQrevised"
         tools:targetApi="31">
         <activity
+            android:name=".Search"
+            android:exported="false" />
+        <activity
             android:name=".CaregiverLogin"
             android:exported="false" />
         <activity
@@ -26,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
