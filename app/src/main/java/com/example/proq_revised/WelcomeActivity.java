@@ -18,20 +18,14 @@ public class WelcomeActivity extends AppCompatActivity {
         caregiverBtn=findViewById(R.id.caregiverBtn);
         contactPersonBtn=findViewById(R.id.contactPersonBtn);
 
-        caregiverBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, CaregiverLogin.class);
-                startActivity(intent);
-            }
+        caregiverBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CaregiverLogin.class);
+            startActivity(intent);
         });
 
-        contactPersonBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, ContactPersonLogin.class);
-                startActivity(intent);
-            }
+        contactPersonBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ContactPersonLogin.class);
+            startActivity(intent);
         });
     }
 }

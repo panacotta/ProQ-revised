@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CaregiverLogin extends AppCompatActivity {
     private TextInputEditText email;
@@ -56,7 +54,7 @@ public class CaregiverLogin extends AppCompatActivity {
             }
             //display message if email and/or password is not provided by user
             else {
-                Toast.makeText(CaregiverLogin.this, "Please enter email and password" + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please enter email and password" + "", Toast.LENGTH_SHORT).show();
             }
             password.setText("");
         });
@@ -79,7 +77,7 @@ public class CaregiverLogin extends AppCompatActivity {
                     }
                     //if both queries does not return matching result, display error message
                     else {
-                        Toast.makeText(CaregiverLogin.this, "Incorrect email and/or password. Try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Incorrect email and/or password. Try again", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -102,13 +100,13 @@ public class CaregiverLogin extends AppCompatActivity {
                 //successful login
                 if (task1.isSuccessful()) {
                     //Sign in succeed and go to next activity if email & password matches
-                    Intent intent = new Intent(CaregiverLogin.this, Search.class);
+                    Intent intent = new Intent(getApplicationContext(), Search.class);
                     intent.putExtra("caregiverID", user); //pass caregiver info to next activity
                     startActivity(intent);
                 }
                 //unsuccessful login, display message
                 else {
-                    Toast.makeText(CaregiverLogin.this, "Incorrect email and/or password. Try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Incorrect email and/or password. Try again", Toast.LENGTH_SHORT).show();
                 }
             });
         }
